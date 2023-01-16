@@ -37,3 +37,4 @@ cachetools
 bin
 __pycache__
 test.zip
+venv
