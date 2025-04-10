@@ -19,8 +19,13 @@ jobs:
       - name: Print a message
         run: echo "Workflow triggered successfully!"
 
+      # Step 3: Recreate credentials.json from secrets
+      - name: Create credentials.json
+        run: |
+          echo '${{ secrets.GOOGLE_CREDENTIALS }}' > credentials.json
 
-      # Step 3: Create .env file from secrets
+
+      # Step 4: Create .env file from secrets
       - name: Create .env file
         run: |
           echo "CONSUMER_KEY=${{ secrets.CONSUMER_KEY }}" >> .env
@@ -28,13 +33,13 @@ jobs:
           echo "ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}" >> .env
           echo "ACCESS_SECRET=${{ secrets.ACCESS_SECRET }}" >> .env
 
-      # Step 4: Install dependencies (if using Python)
+      # Step 5: Install dependencies (if using Python)
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Step 5: Run your Python script using the .env file
+      # Step 6: Run your Python script using the .env file
       - name: Run Twitter bot script
         env:
           CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
