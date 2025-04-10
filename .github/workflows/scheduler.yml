@@ -2,8 +2,9 @@ name: Tweet Scheduler
 
 on:
   schedule:
-    # Runs every 3 hours (adjust as needed)
+    # Runs every 3 hours
     - cron: "0 */3 * * *"
+  workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
   twitter-bot:
@@ -14,7 +15,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Create .env file from secrets
+      # Step 2: Print a test message (for debugging)
+      - name: Print a message
+        run: echo "Workflow triggered successfully!"
+
+
+      # Step 3: Create .env file from secrets
       - name: Create .env file
         run: |
           echo "CONSUMER_KEY=${{ secrets.CONSUMER_KEY }}" >> .env
@@ -22,13 +28,13 @@ jobs:
           echo "ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}" >> .env
           echo "ACCESS_SECRET=${{ secrets.ACCESS_SECRET }}" >> .env
 
-      # Step 3: Install dependencies (if using Python)
+      # Step 4: Install dependencies (if using Python)
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Step 4: Run your Python script using the .env file
+      # Step 5: Run your Python script using the .env file
       - name: Run Twitter bot script
         env:
           CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
