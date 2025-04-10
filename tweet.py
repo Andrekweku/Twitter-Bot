@@ -3,7 +3,7 @@ from pytwitter import Api
 from config import settings
 
 
-def test(event=None, context=None):
+def post_tweet(event=None, context=None):
     """
     Fetches the next tweet from a Google Sheet, posts it to Twitter,
     and updates the sheet by moving the tweet to the next empty row.
@@ -61,4 +61,4 @@ def find_next_empty_row(worksheet, start_row=1):
     # If no empty cell is found, return the next row index
     return len(values) + 1
 
-test()
+post_tweet()
