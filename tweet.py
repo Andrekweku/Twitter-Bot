@@ -52,7 +52,7 @@ def post_tweet():
         if next_tweet not in saved_tweets:
             try:
                 # Post the tweet
-                # api.create_tweet(text=next_tweet)
+                api.create_tweet(text=next_tweet)
 
                 # Save the tweet to the saved tweets sheet
                 save_tweet_to_sheet(saved_tweets_sheet, next_tweet)
